@@ -1,0 +1,63 @@
+Sub SubnetFinder()
+    ' Dichiarazione variabili
+    Dim i, j As Integer
+    Dim subnetstart(), matchedmask, subnetlength() As Variant
+    Dim sourceip(), sourceipoct1(), sourceipoct2(), sourceipoct3(), sourceipoct4() As Variant
+    Dim subnetstartoct1(), subnetstartoct2(), subnetstartoct3(), subnetstartoct4()  As Variant
+    Dim subnetendoct1(), subnetendoct2(), subnetendoct3(), subnetendoct4() As Variant
+    Dim matchedsubnet(), matchedsubnetoct1(), matchedsubnetoct2(), matchedsubnetoct3(), matchedsubnetoct4() As Variant
+    
+    ' Inizializzazione variabili
+    subnetstart = Sheets("Sheet1").Range("H3:H4").Value
+    subnetstartoct1 = Sheets("Sheet1").Range("J3:J4").Value
+    subnetstartoct2 = Sheets("Sheet1").Range("K3:K4").Value
+    subnetstartoct3 = Sheets("Sheet1").Range("L3:L4").Value
+    subnetstartoct4 = Sheets("Sheet1").Range("M3:M4").Value
+    
+    subnetendoct1 = Sheets("Sheet1").Range("N3:N4").Value
+    subnetendoct2 = Sheets("Sheet1").Range("O3:O4").Value
+    subnetendoct3 = Sheets("Sheet1").Range("P3:P4").Value
+    subnetendoct4 = Sheets("Sheet1").Range("Q3:Q4").Value
+    
+    sourceip = Sheets("Sheet1").Range("B3:B4").Value
+    sourceipoct1 = Sheets("Sheet1").Range("C3:C4").Value
+    sourceipoct2 = Sheets("Sheet1").Range("D3:D4").Value
+    sourceipoct3 = Sheets("Sheet1").Range("E3:E4").Value
+    sourceipoct4 = Sheets("Sheet1").Range("F3:F4").Value
+
+    matchedsubnetoct1 = Sheets("Sheet1").Range("S3:S4").Value
+    matchedsubnetoct2 = Sheets("Sheet1").Range("T3:T4").Value
+    matchedsubnetoct3 = Sheets("Sheet1").Range("U3:U4").Value
+    matchedsubnetoct4 = Sheets("Sheet1").Range("V3:V4").Value
+    
+    matchedmask = Sheets("Sheet1").Range("I3:I4").Value
+
+
+    'Iterazione
+    For j = 1 To 2
+        For i = 1 To 2
+              
+            If ((sourceipoct1(j, 1) = subnetstartoct1(i, 1)) And (sourceipoct1(j, 1) <= subnetendoct1(i, 1))) Then
+                matchedsubnetoct1(j, 1) = subnetstartoct1(i, 1)
+                
+                If ((sourceipoct2(j, 1) >= subnetstartoct2(i, 1)) And (sourceipoct2(j, 1) <= subnetendoct2(i, 1))) Then
+                    matchedsubnetoct2(j, 1) = subnetstartoct2(i, 1)
+                
+                    If ((sourceipoct3(j, 1) >= subnetstartoct3(i, 1)) And (sourceipoct3(j, 1) <= subnetendoct3(i, 1))) Then
+                        matchedsubnetoct3(j, 1) = subnetstartoct3(i, 1)
+                    
+                        If ((sourceipoct4(j, 1) >= subnetstartoct4(i, 1)) And (sourceipoct4(j, 1) <= subnetendoct4(i, 1))) Then
+                            matchedsubnetoct4(j, 1) = subnetstartoct4(i, 1)
+                               
+                            Worksheets("Sheet1").Cells(j + 2, 19) = matchedsubnetoct1(j, 1)
+                            Worksheets("Sheet1").Cells(j + 2, 20) = matchedsubnetoct2(j, 1)
+                            Worksheets("Sheet1").Cells(j + 2, 21) = matchedsubnetoct3(j, 1)
+                            Worksheets("Sheet1").Cells(j + 2, 22) = matchedsubnetoct4(j, 1)
+                            Worksheets("Sheet1").Cells(j + 2, 23) = matchedmask(i, 1)
+                        End If
+                    End If
+                End If
+            End If
+        Next i
+    Next j
+End Sub
